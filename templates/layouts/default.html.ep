@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title><%= title %></title>
-        <link rel="stylesheet" type="text/css" href="<% url_for '/css/bootstrap.min.css' %>"/>
-        <script type="text/javascript" src="<% url_for '/js/bootstrap.min.js' %>"></script>
-    </head>
-    <body>
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <p>Home</p>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="<%= url_for '/css/bootstrap.min.css' %>"/>
+    <script type="text/javascript" src="<%= url_for '/js/bootstrap.min.js' %>"></script>
+</head>
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <ul class="nav">
+                    <li><a href="#">Home</a></li>
+                </ul>
+                <form class="navbar-search pull-left">
+                    <input type="text" class="search-query" placeholder="Search Library">
+                </form>
             </div>
         </div>
+    </div>
+    <div class="container">
+        <h1><%= title %></h1>
         <%= content %>
-    </body>
+    </div>
+</body>
 </html>
