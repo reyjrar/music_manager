@@ -1,8 +1,19 @@
 package MusicManager;
 use Mojo::Base 'Mojolicious';
 use Audio::MPD;
+use MusicManager::Model::Playlists;
 
-has 'mpd' => sub { my $self = shift; return Audio::MPD->new( { host => $self->config->{mpd}{host} } ); };
+# Music Player Daemon
+has 'mpd' => sub {
+    my $self = shift;
+    return Audio::MPD->new( { host => $self->config->{mpd}{host} } );
+};
+
+# Playlist Handling
+has 'playlists' => sub {
+    my $self = shift;
+    return MusicManager::Model::Playlists->new( playlist_dir => $self->config->{mpd}{playlist_dir} );
+};
 
 # This method will run once at server start
 sub startup {
@@ -18,10 +29,11 @@ sub startup {
             stash_key   => 'config',
     });
 
-    # Hook to refresh current_track
+    # Hook to refresh state
     $self->hook( before_dispatch => sub {
               my $c = shift;
-              $c->stash( current_track => $c->app->mpd->current )
+              $c->stash( current_track => $c->app->mpd->current );
+              $c->stash( mpd_status => $c->app->mpd->status );
           }
     );
 
@@ -31,6 +43,9 @@ sub startup {
 
     # Normal route to controller
     $r->route('/')->to('main#index');
+    $r->route('/playlist/add_song')->to('playlist#add_song');
+    $r->route('/mpd/do/:command')->to('MPD#do');
+    $r->route('/mpd/volume/:adjustment')->to('MPD#volume');
 }
 
 1;

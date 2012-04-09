@@ -1,7 +1,27 @@
 % layout 'default', title 'MusicManager';
 
-<p>1 lorem ipsum</p>
-<p>2 lorem ipsum</p>
-<p>3 lorem ipsum</p>
-<p>4 lorem ipsum</p>
+<form method="POST" action="<%= url_for '/playlist/add_song' %>">
+<h2>Add Current Song to Playlist</h2>
 
+<dl class="dl-horizontal">
+    <dt>Title :</dt>
+    <dd class="current_track_title"><%== $current_track->title %></dd>
+    <dt>Album :</dt>
+    <dd class="current_track_album"><%== $current_track->album %></dd>
+    <dt>Artist :</dt>
+    <dd class="current_track_artist"><%== $current_track->artist %></dd>
+</dl>
+
+<div class="container">
+<select name="playlist_name">
+% foreach my $l (@$playlists) {
+    <option value="<%== $l %>"><%== $l %></option>
+% }
+</select>
+<input type="hidden" name="song_file" value="<%== $current_track->file %>"/>
+<input type="hidden" class="current_track_title" name="track_title" value="<%== $current_track->title %>"/>
+<input type="hidden" class="current_track_artist" name="track_artist" value="<%== $current_track->artist %>"/>
+<input type="Submit" value="Add to Selected Playlist" class="btn btn-success"/>
+</div>
+
+</form>

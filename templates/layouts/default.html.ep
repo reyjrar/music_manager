@@ -11,6 +11,10 @@
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
+                <p class="navbar-text pull-left">Now Playing :
+                    "<span class="current_track_title"><%== $current_track->title %></span>"
+                    by <span class="current_track_artist"><%== $current_track->artist %></span>
+                </p>
                 <ul class="nav">
                     <li><a href="#">Home</a></li>
                 </ul>
@@ -18,11 +22,15 @@
                     <input type="text" class="search-query" placeholder="Search Library">
                 </form>
                 <p class="navbar-text pull-right">
-                <i class="icon-play icon-white"></i><span id="nowPlaying">"<%== $current_track->title %>"
-                    by <%== $current_track->artist %></span>
-                    <!-- <%== $current_track->file %> -->
+                    <a href="<%= url_for '/mpd/do/prev' %>"><i class="icon-step-backward icon-white"></i></a>
+                    <a href="<%= url_for '/mpd/do/play' %>"><i class="icon-play icon-white"></i></a>
+                    <a href="<%= url_for '/mpd/do/pause' %>"><i class="icon-pause icon-white"></i></a>
+                    <a href="<%= url_for '/mpd/do/next' %>"><i class="icon-step-forward icon-white"></i></a>
+                    &nbsp;
+                    <a href="<%= url_for '/mpd/volume/down' %>"><i class="icon-volume-down icon-white"></i></a>
+                    <a href="<%= url_for '/mpd/volume/up' %>"><i class="icon-volume-up icon-white"></i></a>
+                    <span class="small"><%== $mpd_status->volume %>%</span>
                 </p>
-
             </div>
         </div>
     </div>
@@ -30,5 +38,27 @@
         <h1><%= title %></h1>
         <%= content %>
     </div>
+
+    <!-- Flashes -->
+    <div class="row">
+        <div class="span4">&nbsp;</div>
+% my $message = flash 'message';
+% if ( defined $message ) {
+    <div class="row">
+    <div id='flash' class="span4 alert alert-success">
+        <a class="close" data-dismiss="alert">x</a>
+        <%== $message %>
+    </div>
+    </div>
+% }
+% my $error = flash 'error';
+% if ( defined $error ) {
+    <div id='flash' class="span4 alert alert-error">
+        <a class="close" data-dismiss="alert">x</a>
+        <%== $error %>
+    </div>
+    </div>
+% }
+
 </body>
 </html>
