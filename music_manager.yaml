@@ -1,0 +1,5 @@
+---
+mpd:
+  host: 10.0.1.10
+  playlist_dir: /home/torrents/.mpd/playlists
+  media_dir: /home/torrents/music

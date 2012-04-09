@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title><%= title %></title>
     <link rel="stylesheet" type="text/css" href="<%= url_for '/css/bootstrap.min.css' %>"/>
+    <link rel="stylesheet" type="text/css" href="<%= url_for '/css/main.css' %>"/>
+    <script type="text/javascript" src="<%= url_for '/js/jquery.min.js' %>"></script>
     <script type="text/javascript" src="<%= url_for '/js/bootstrap.min.js' %>"></script>
 </head>
 <body>
@@ -15,10 +17,16 @@
                 <form class="navbar-search pull-left">
                     <input type="text" class="search-query" placeholder="Search Library">
                 </form>
+                <p class="navbar-text pull-right">
+                <i class="icon-play icon-white"></i><span id="nowPlaying">"<%== $current_track->title %>"
+                    by <%== $current_track->artist %></span>
+                    <!-- <%== $current_track->file %> -->
+                </p>
+
             </div>
         </div>
     </div>
-    <div class="container">
+    <div id="content" class="container">
         <h1><%= title %></h1>
         <%= content %>
     </div>
