@@ -3,6 +3,33 @@ use Mojo::Base 'Mojolicious::Controller';
 use File::Spec;
 use Try::Tiny;
 
+
+sub switch {
+    my $self = shift;
+
+    my $playlist = $self->req->param('playlist_name');
+    my $list_info = $self->app->playlists->get( $playlist );
+
+    if( defined $list_info ) {
+        my $err = undef;
+        my $mpd = $self->app->mpd;
+        try {
+            $mpd->stop;
+            $mpd->playlist->clear;
+            $mpd->playlist->load( $list_info->{name} );
+            $mpd->play;
+        } catch {
+            $err=shift;
+        };
+        $err ?    $self->flash(error => "Error loading playlist($playlist): $err")
+                : $self->flash(message => "Loaded the $playlist playlist");
+    }
+    else {
+        $self->flash(error => "Unknown playlist specified: $playlist");
+    }
+    $self->redirect_to( '/' );
+}
+
 sub add_song {
     my $self = shift;
 

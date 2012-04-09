@@ -44,6 +44,8 @@ sub startup {
     # Normal route to controller
     $r->route('/')->to('main#index');
     $r->route('/playlist/add_song')->to('playlist#add_song');
+    $r->route('/playlist/switch')->to('playlist#switch');
+
     $r->route('/mpd/do/:command')->to('MPD#do');
     $r->route('/mpd/volume/:adjustment')->to('MPD#volume');
 }

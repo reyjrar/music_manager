@@ -1,5 +1,8 @@
 % layout 'default', title 'MusicManager';
 
+<div class="row">
+
+<div class="span6">
 <form method="POST" action="<%= url_for '/playlist/add_song' %>">
 <h2>Add Current Song to Playlist</h2>
 
@@ -12,7 +15,6 @@
     <dd class="current_track_artist"><%== $current_track->artist %></dd>
 </dl>
 
-<div class="container">
 <select name="playlist_name">
 % foreach my $l (@$playlists) {
     <option value="<%== $l %>"><%== $l %></option>
@@ -22,6 +24,20 @@
 <input type="hidden" class="current_track_title" name="track_title" value="<%== $current_track->title %>"/>
 <input type="hidden" class="current_track_artist" name="track_artist" value="<%== $current_track->artist %>"/>
 <input type="Submit" value="Add to Selected Playlist" class="btn btn-success"/>
+</form>
 </div>
 
+<div class="span6">
+<h2>Switch Playlists</h2>
+<form method="POST" action="<%= url_for '/playlist/switch' %>">
+<select name="playlist_name">
+% foreach my $l (@$playlists) {
+    <option value="<%== $l %>"><%== $l %></option>
+% }
+</select>
+<input type="Submit" value="Change Playlists" class="btn btn-primary"/>
 </form>
+</div>
+
+
+</div><!-- End of Row !>
