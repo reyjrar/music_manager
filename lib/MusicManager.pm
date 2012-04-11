@@ -2,6 +2,7 @@ package MusicManager;
 use Mojo::Base 'Mojolicious';
 use Audio::MPD;
 use MusicManager::Model::Playlists;
+use MusicManager::Model::Files;
 
 # Music Player Daemon
 has 'mpd' => sub {
@@ -14,6 +15,13 @@ has 'playlists' => sub {
     my $self = shift;
     return MusicManager::Model::Playlists->new( playlist_dir => $self->config->{mpd}{playlist_dir} );
 };
+
+# Playlist Handling
+has 'files' => sub {
+    my $self = shift;
+    return MusicManager::Model::Files->new( media_dir => $self->config->{mpd}{media_dir} );
+};
+
 
 # This method will run once at server start
 sub startup {
@@ -49,12 +57,17 @@ sub startup {
     $r->route('/library/artists')->to('library#artists');
     $r->route('/library/artist/:artist')->to('library#artist');
 
+    # Now Playing
+    $r->route('/nowplaying/replace/artist/:artist')->to(controller => 'NowPlaying', action => 'replace_artist');
+    $r->route('/nowplaying/replace/album/:artist/:album')->to(controller => 'NowPlaying', action => 'replace_artist_album');
+
     # Playlist routes
     $r->route('/playlist/add_song')->to('playlist#add_song');
     $r->route('/playlist/switch')->to('playlist#switch');
 
     # MPD Control Routes
     $r->route('/mpd/do/:command')->to('MPD#do');
+    $r->route('/mpd/toggle/:setting')->to('MPD#toggle');
     $r->route('/mpd/volume/:adjustment')->to('MPD#volume');
 }
 

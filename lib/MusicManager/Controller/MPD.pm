@@ -3,8 +3,9 @@ use Mojo::Base 'Mojolicious::Controller';
 use Try::Tiny;
 
 my %_mpd_can_do = map { $_ => 1 } qw(play pause stop prev next);
+my %_mpd_can_toggle = map { $_ => 1 } qw(random repeat);
 
-
+# Handle Volume Controls
 sub volume {
     my $self = shift;
     my %values = (
@@ -48,5 +49,30 @@ sub do {
 
     $self->redirect_to('/');
 }
+
+# Handle Toggles
+sub toggle {
+    my $self = shift;
+    my $name = $self->stash( 'setting' );
+
+    if( exists $_mpd_can_toggle{$name} ) {
+        my $err=undef;
+        try {
+            no strict;
+            my $new = !$self->app->mpd->status->$name;
+            $self->app->mpd->$name($new);
+            $self->flash(message => "Set $name to $new");
+        } catch {
+            $err = shift;
+            $self->flash(error => "MPD Encountered Error Toggling '$name' : $err" );
+        };
+    }
+    else {
+        $self->flash(error => "Unknown MPD Setting: $name");
+    }
+
+    $self->redirect_to('/');
+}
+
 
 1;

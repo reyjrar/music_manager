@@ -11,12 +11,21 @@
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
-                <p class="navbar-text pull-left">Now Playing :
+                <p class="navbar-text pull-left"><i class="icon-music icon-white"></i>
                     "<span class="current_track_title"><%== $current_track->title %></span>"
-                    by <span class="current_track_artist"><%== $current_track->artist %></span>
+                    by <a href="<%== url_for "/library/artist/". $current_track->artist %>"><span class="current_track_artist"><%== $current_track->artist %></span></a>
                 </p>
                 <ul class="nav">
-                    <li><a href="#">Home</a></li>
+                    <li class="dropdown" id="navmenu">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#navmenu">
+                            Navigate
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<%== url_for '/' %>">Home</a></li>
+                            <li><a href="<%== url_for '/library' %>">Library</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <form class="navbar-search pull-left">
                     <input type="text" class="search-query" placeholder="Search Library">
@@ -26,6 +35,8 @@
                     <a href="<%= url_for '/mpd/do/play' %>"><i class="icon-play icon-white"></i></a>
                     <a href="<%= url_for '/mpd/do/pause' %>"><i class="icon-pause icon-white"></i></a>
                     <a href="<%= url_for '/mpd/do/next' %>"><i class="icon-step-forward icon-white"></i></a>
+                    &nbsp;
+                    <a href="<%= url_for '/mpd/toggle/random' %>"><i class="icon-random <%== $mpd_status->random ? 'icon-white' : '' %>"></i></a>
                     &nbsp;
                     <a href="<%= url_for '/mpd/volume/down' %>"><i class="icon-volume-down icon-white"></i></a>
                     <a href="<%= url_for '/mpd/volume/up' %>"><i class="icon-volume-up icon-white"></i></a>
