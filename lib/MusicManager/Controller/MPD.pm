@@ -74,5 +74,27 @@ sub toggle {
     $self->redirect_to('/');
 }
 
+# Handle Track changing
+sub playid {
+    my $self = shift;
+    my $id = $self->stash( 'song_id' );
 
+    if( $id =~ /^[0-9]+$/ ) {
+        my $err=undef;
+        try {
+            $self->app->mpd->playid($id);
+            $self->flash(message => "Playing ID: $id");
+        } catch {
+            $err = shift;
+            $self->flash(error => "MPD Encountered Error playing id=$id : $err" );
+        };
+    }
+    else {
+        $self->flash(error => "Play ID only accepts integers: '$id'");
+    }
+
+    $self->redirect_to('/');
+}
+
+# Return True
 1;

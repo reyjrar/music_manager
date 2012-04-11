@@ -72,6 +72,7 @@ sub startup {
     $r->route('/mpd/do/:command')->to('MPD#do');
     $r->route('/mpd/toggle/:setting')->to('MPD#toggle');
     $r->route('/mpd/volume/:adjustment')->to('MPD#volume');
+    $r->route('/mpd/playid/:song_id')->to('MPD#playid');
 }
 
 1;
