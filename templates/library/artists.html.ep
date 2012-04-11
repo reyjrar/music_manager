@@ -14,7 +14,7 @@
 %   next unless defined $artist and length $artist;
 <tr>
     <td><%== $artist %></td>
-    <td><a href="<%= url_for "/playlist/add/artist/$artist" %>"
+    <td><a href="<%= url_for "/nowplaying/add/artist/$artist" %>"
            class="btn btn-success"><i class="icon-plus icon-white"></i> add artist</a>
         <a href="<%= url_for "/nowplaying/replace/artist/$artist" %>"
             class="btn btn-primary"><i class="icon-play icon-white"></i> play artist</a>

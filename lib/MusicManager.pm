@@ -58,7 +58,9 @@ sub startup {
     $r->route('/library/artist/:artist')->to('library#artist');
 
     # Now Playing
+    $r->route('/nowplaying/add/artist/:artist')->to(controller => 'NowPlaying', action => 'add_artist');
     $r->route('/nowplaying/replace/artist/:artist')->to(controller => 'NowPlaying', action => 'replace_artist');
+    $r->route('/nowplaying/add/album/:artist/:album')->to(controller => 'NowPlaying', action => 'add_artist_album');
     $r->route('/nowplaying/replace/album/:artist/:album')->to(controller => 'NowPlaying', action => 'replace_artist_album');
 
     # Playlist routes
