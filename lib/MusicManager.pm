@@ -43,9 +43,17 @@ sub startup {
 
     # Normal route to controller
     $r->route('/')->to('main#index');
+
+    # Library Routes
+    $r->route('/library')->to('library#artists');
+    $r->route('/library/artists')->to('library#artists');
+    $r->route('/library/artist/:artist')->to('library#artist');
+
+    # Playlist routes
     $r->route('/playlist/add_song')->to('playlist#add_song');
     $r->route('/playlist/switch')->to('playlist#switch');
 
+    # MPD Control Routes
     $r->route('/mpd/do/:command')->to('MPD#do');
     $r->route('/mpd/volume/:adjustment')->to('MPD#volume');
 }

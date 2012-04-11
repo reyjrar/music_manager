@@ -1,0 +1,25 @@
+% layout 'default';
+% title "MusicManager :: Artist :: $artist";
+
+<table class="table">
+<thead>
+    <tr>
+        <th>Album Name</th>
+        <th>Functions</th>
+    </tr>
+</thead>
+<tbody>
+% foreach my $album (@$albums) {
+%   $album =~ s/^\s+//;
+%   next unless defined $album and length $album;
+<tr>
+    <td><%== $album %></td>
+    <td><a href="<%= url_for "/nowplaying/add_artist/$album" %>"
+           class="btn btn-success"><i class="icon-plus icon-white"></i> add album</a>
+        <a href="<%= url_for "/library/album/$artist" %>"
+            class="btn btn-primary"><i class="icon-zoom-in icon-white"></i> view</a>
+    </td>
+</tr>
+% }
+</tbody>
+</table>
