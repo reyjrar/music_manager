@@ -65,6 +65,9 @@
         <td><%== $song->artist %></td>
         <td><%== $song->album %></td>
         <td><%== $song->title %></td>
+        <td>
+            <a class="btn btn-danger" href="<%= url_for '/nowplaying/del/song/' . $song->id %>"><i class="icon-ban-circle icon-white"></i> delete</a>
+        </td>
     </tr>
 % }
 </tbody>

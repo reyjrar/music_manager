@@ -96,5 +96,19 @@ sub replace_artist_album {
     $self->redirect_to('/');
 }
 
+sub del_song {
+    my $self = shift;
+    my $id = $self->stash('song_id');
+
+    try {
+        $self->app->mpd->playlist->deleteid( $id );
+        $self->flash(message => "Removed Song ID: $id from playlist");
+    } catch {
+        my $err = shift;
+        $self->flash(error => "Received error removing songid:$id from playlist");
+    };
+
+    $self->redirect_to( '/' );
+}
 
 1;
