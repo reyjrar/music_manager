@@ -1,8 +1,8 @@
 ---
 mpd:
   host: 127.0.0.1
-  playlist_dir: /opt/local/var/lib/mpd/playlists
-  media_dir: /mp3
+  playlist_dir: /home/torrents/.mpd/playlists
+  media_dir: /home/torrents/music
 covers:
   enable: 1
   cache_dir: /tmp/music_manager/covers
