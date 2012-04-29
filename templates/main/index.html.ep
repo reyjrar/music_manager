@@ -49,7 +49,7 @@
         <th>Artist</th>
         <th>Album</th>
         <th>Song</th>
-        <th>Options</th>
+        <th style="width: 150px;">Options</th>
     </tr>
 </thead>
 <tbody>
