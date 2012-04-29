@@ -3,7 +3,7 @@
 <div class="row">
 <div class="span6">
 <form method="POST" action="<%= url_for '/playlist/add_song' %>">
-<h2>Add Current Song to Playlist</h2>
+<h2>Add Current Song to Offline Playlist</h2>
 
 <dl class="dl-horizontal">
     <dt>Title :</dt>
@@ -39,7 +39,21 @@
 </div>
 </div><!-- End of Row --!>
 
-<h1>Now Playing</h1>
+<hr />
+
+<!-- Current Playlist Entries -->
+<div class="row">
+<h1 class="span3">Now Playing</h1>
+<div class="span5 offset2">
+<form class="form-inline" method="POST" action="<%= url_for '/nowplaying/save' %>">
+    <label for="saveas">Save current playlist as : </label>
+    <input type="text" name="saveas" id="saveas" class="input-small"/>
+    <input type ="submit" value="Save" class="btn btn-primary"/>
+</form>
+</div>
+</div>
+
+
 <div class="row">
 <table class="table table-striped table-condensed">
 <thead>

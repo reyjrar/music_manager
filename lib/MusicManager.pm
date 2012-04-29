@@ -63,6 +63,7 @@ sub startup {
     $r->route('/nowplaying/add/album/:artist/:album')->to(controller => 'NowPlaying', action => 'add_artist_album');
     $r->route('/nowplaying/replace/album/:artist/:album')->to(controller => 'NowPlaying', action => 'replace_artist_album');
     $r->route('/nowplaying/del/song/:song_id')->to(controller => 'NowPlaying', action => 'del_song');
+    $r->route('/nowplaying/save')->to(controller => 'NowPlaying', action => 'save');
 
     # Playlist routes
     $r->route('/playlist/add_song')->to('playlist#add_song');

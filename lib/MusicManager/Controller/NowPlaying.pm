@@ -3,6 +3,21 @@ use Mojo::Base 'Mojolicious::Controller';
 use Try::Tiny;
 
 # Controller to modify the currently playing song list
+sub save {
+    my $self = shift;
+    my $mpd = $self->app->mpd;
+
+    my $playlist_name = $self->req->param( 'saveas' );
+    # Scrub playlist name
+    $playlist_name =~ s/\s+/\_/g;
+    $playlist_name =~ s/[^0-9a-z-A-Z\_\-]+//g;
+
+    $mpd->playlist->save( $playlist_name );
+
+    $self->flash( message => "Playlist saved as '$playlist_name'" );
+    $self->redirect_to('/');
+
+}
 
 sub add_artist {
     my $self = shift;
