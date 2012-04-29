@@ -1,0 +1,19 @@
+ABOUT
+
+  MusicManager is a bootstrap based front-end to do things with MPD.
+
+REQUIREMENTS
+
+    Perl (5.10.1 or later)
+    Mojolicious
+    Audio::MPD
+
+INSTALL
+
+    git clone
+    cd music_manager
+    vim music_manager.yml
+    morbo ./script/music_manager
+
+    Point your browser to http://localhost:3000/
+
