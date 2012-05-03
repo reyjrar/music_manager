@@ -5,8 +5,12 @@ ABOUT
 REQUIREMENTS
 
     Perl (5.10.1 or later)
-    Mojolicious
-    Audio::MPD
+    Perl Modules: (cpan ModuleName)
+        Mojolicious
+        Audio::MPD
+        Mojolicious::Plugin::Config::Yaml
+        File::Find::Rule
+        Try::Tiny
 
 INSTALL
 
