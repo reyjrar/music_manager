@@ -40,7 +40,17 @@ sub startup {
     # Hook to refresh state
     $self->hook( before_dispatch => sub {
               my $c = shift;
-              $c->stash( current_track => $c->app->mpd->current );
+              my %curr = map { $_ => '' } qw(id file title artist album);
+              if( my $t = $c->app->mpd->current ) {
+                  %curr = (
+                        id => $t->id,
+                        title => $t->title,
+                        artist => $t->artist,
+                        album => $t->album,
+                        file => $t->file,
+                    );
+              }
+              $c->stash( current_track => \%curr );
               $c->stash( mpd_status => $c->app->mpd->status );
           }
     );

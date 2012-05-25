@@ -12,8 +12,8 @@
         <div class="navbar-inner">
             <div class="container">
                 <p class="navbar-text pull-left"><i class="icon-music icon-white"></i>
-                    "<span class="current_track_title"><%== $current_track->title %></span>"
-                    by <a href="<%== url_for "/library/artist/". $current_track->artist %>"><span class="current_track_artist"><%== $current_track->artist %></span></a>
+                "<span class="current_track_title"><%== $current_track->{title} %></span>"
+                by <a href="<%== url_for "/library/artist/". $current_track->{artist} %>"><span class="current_track_artist"><%== $current_track->{artist} %></span></a>
                 </p>
                 <ul class="nav">
                     <li class="dropdown" id="navmenu">

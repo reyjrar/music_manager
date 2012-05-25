@@ -7,11 +7,11 @@
 
 <dl class="dl-horizontal">
     <dt>Title :</dt>
-    <dd class="current_track_title"><%== $current_track->title %></dd>
+    <dd class="current_track_title"><%== $current_track->{title} %></dd>
     <dt>Album :</dt>
-    <dd class="current_track_album"><%== $current_track->album %></dd>
+    <dd class="current_track_album"><%== $current_track->{album} %></dd>
     <dt>Artist :</dt>
-    <dd class="current_track_artist"><%== $current_track->artist %></dd>
+    <dd class="current_track_artist"><%== $current_track->{artist} %></dd>
 </dl>
 
 <select name="playlist_name">
@@ -19,9 +19,9 @@
     <option value="<%== $l %>"><%== $l %></option>
 % }
 </select>
-<input type="hidden" name="song_file" value="<%== $current_track->file %>"/>
-<input type="hidden" class="current_track_title" name="track_title" value="<%== $current_track->title %>"/>
-<input type="hidden" class="current_track_artist" name="track_artist" value="<%== $current_track->artist %>"/>
+<input type="hidden" name="song_file" value="<%== $current_track->{file} %>"/>
+<input type="hidden" class="current_track_title" name="track_title" value="<%== $current_track->{title} %>"/>
+<input type="hidden" class="current_track_artist" name="track_artist" value="<%== $current_track->{artist} %>"/>
 <input type="Submit" value="Add to Selected Playlist" class="btn btn-success"/>
 </form>
 </div>
@@ -70,14 +70,14 @@
 % foreach my $song (@$songs) {
     <tr>
         <td>
-%       if( $current_track->id == $song->id ) {
+%       if( $current_track->{id} == $song->id ) {
             <i class="icon-music"></i>
 %       } else {
             &nbsp;
 %       }
         </td>
         <td><%== $song->id %></td>
-        <td><%== $song->artist %></td>
+        <td><a href="<%= url_for '/library/artist/' . $song->artist %>"><%== $song->artist %></a></td>
         <td><%== $song->album %></td>
         <td><%== $song->title %></td>
         <td>
