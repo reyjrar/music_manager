@@ -111,6 +111,11 @@ sub replace_artist_album {
     $self->redirect_to('/');
 }
 
+sub add_song {
+    my $self = shift;
+    my $mpd = $self->app->mpd;
+}
+
 sub del_song {
     my $self = shift;
     my $id = $self->stash('song_id');

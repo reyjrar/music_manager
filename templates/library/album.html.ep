@@ -1,0 +1,26 @@
+% layout 'default';
+% title "MusicManager :: Album :: $album";
+
+<table class="table">
+<thead>
+    <tr>
+        <th>Arist</th>
+        <th>Album</th>
+        <th>Title</th>
+        <th>Functions</th>
+    </tr>
+</thead>
+<tbody>
+% foreach my $song (@$songs) {
+%   my $song_id = $song->file;
+<tr>
+    <td><%== $song->artist %></td>
+    <td><%== $song->album %></td>
+    <td><%== $song->title %></td>
+    <td><a href="<%= url_for "/nowplaying/add/song/$song_id" %>"
+           class="btn btn-success"><i class="icon-plus icon-white"></i> add song</a>
+    </td>
+</tr>
+% }
+</tbody>
+</table>

@@ -66,6 +66,7 @@ sub startup {
     $r->route('/library')->to('library#artists');
     $r->route('/library/artists')->to('library#artists');
     $r->route('/library/artist/:artist')->to('library#artist');
+    $r->route('/library/album/:album')->to('library#album');
 
     # Now Playing
     $r->route('/nowplaying/add/artist/:artist')->to(controller => 'NowPlaying', action => 'add_artist');

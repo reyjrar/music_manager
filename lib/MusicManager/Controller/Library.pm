@@ -22,4 +22,17 @@ sub artist {
     $self->render();
 }
 
+sub album {
+    my $self = shift;
+
+    # Grab the artist
+    my $album = $self->stash('album');
+
+    my @songs = sort mm_sort_smart $self->app->mpd->collection->songs_from_album( $album );
+    $self->stash( songs => \@songs );
+
+    $self->render();
+}
+
+
 1;
