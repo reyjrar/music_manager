@@ -1,0 +1,5 @@
+Mojolicious
+Audio::MPD
+Mojolicious::Plugin::YamlConfig
+File::Find::Rule
+Try::Tiny

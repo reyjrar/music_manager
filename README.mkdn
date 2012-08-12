@@ -1,0 +1,46 @@
+# About
+
+MusicManager is a bootstrap based front-end to do things with MPD.
+
+## Requirements
+
+* Perl (5.12 or later)
+* Perl Modules: (cpan ModuleName)
+  * Mojolicious
+  * Audio::MPD
+  * Mojolicious::Plugin::YamlConfig
+  * File::Find::Rule
+  * Try::Tiny
+
+## Installation Instructions
+
+    git clone https://github.com/reyjrar/music_manager.git
+
+    cd music_manager
+
+### Use cpanmin.us for Perl Modules
+
+    curl -L http://cpanmin.us | perl - --self-upgrade
+
+    cpanm < ./prereqs
+
+### Configure the Application
+
+    cp music_manager.yaml.default music_manager.yaml
+    $EDITOR music_manager.yaml
+
+### Start the development server to make sure things are working
+
+    morbo ./script/music_manager
+
+    Point your browser to http://localhost:3000/
+
+## Deploy with PSGI
+
+Included in the script directory is a music_manager.psgi, feel free
+to deploy this however you'd like to a production server.  I recommend
+[Starman](https://metacpan.org/module/Starman) and [nginx](http://nginx.org/).
+
+In contrib/ I've included a music_manager.init which can be installed into /etc/init.d/music_manager.
+This will start the app using Starman to run via Plack. I've also included an nginx.music_manager.conf
+file which can be used to run a reverse proxy back to the Starman application.

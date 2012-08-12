@@ -1,8 +1,8 @@
 ---
 mpd:
   host: 127.0.0.1
-  playlist_dir: /home/torrents/.mpd/playlists
-  media_dir: /home/torrents/music
+  playlist_dir: /home/audio/.mpd/playlists
+  media_dir: /home/audio/music
 covers:
   enable: 1
   cache_dir: /tmp/music_manager/covers
