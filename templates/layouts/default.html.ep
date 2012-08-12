@@ -3,8 +3,11 @@
 <head>
     <title><%= title %></title>
     <link rel="stylesheet" type="text/css" href="<%= url_for '/css/bootstrap.min.css' %>"/>
+    <link rel="stylesheet" type="text/css" href="<%= url_for '/css/bootstrap-responsive.min.css' %>"/>
     <link rel="stylesheet" type="text/css" href="<%= url_for '/css/main.css' %>"/>
     <script type="text/javascript" src="<%= url_for '/js/jquery.min.js' %>"></script>
+    <script type="text/javascript" src="<%= url_for '/js/jquery.metadata.js' %>"></script>
+    <script type="text/javascript" src="<%= url_for '/js/jquery.tablesorter.min.js' %>"></script>
     <script type="text/javascript" src="<%= url_for '/js/bootstrap.min.js' %>"></script>
 </head>
 <body>
