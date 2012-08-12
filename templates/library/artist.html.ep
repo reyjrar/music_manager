@@ -13,7 +13,7 @@
 %   $album =~ s/^\s+//;
 %   next unless defined $album and length $album;
 <tr>
-    <td><%== $album %></td>
+    <td><%= $album %></td>
     <td><a href="<%= url_for "/nowplaying/add/album/$artist/$album" %>"
            class="btn btn-success"><i class="icon-plus icon-white"></i> add album</a>
         <a href="<%= url_for "/nowplaying/replace/album/$artist/$album" %>"
