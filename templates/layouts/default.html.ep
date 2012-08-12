@@ -128,7 +128,7 @@ function get_current_track() {
     });
 }
 $(document).ready(function() {
-    window.setInterval(get_current_track, 1000);
+    window.setInterval(get_current_track, 5000);
     $("a.controls .icon-volume-up").click( function() { set_volume( 'up' ); });
     $("a.controls .icon-volume-down").click( function() { set_volume( 'down' ); });
     $("a.controls .icon-step-forward").click( function() { move_song( 'next' ); });
