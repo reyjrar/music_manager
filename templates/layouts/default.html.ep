@@ -30,15 +30,15 @@
                 </form>
                 -->
                 <p class="navbar-text pull-right">
-                    <a href="#"><i class="icon-step-backward icon-white"></i></a>
-                    <a href="#"><i class="icon-play icon-white"></i></a>
-                    <a href="#"><i class="icon-pause icon-white"></i></a>
-                    <a href="#"><i class="icon-step-forward icon-white"></i></a>
+                    <a href="#" class="controls"><i class="icon-step-backward icon-white"></i></a>
+                    <a href="#" class="controls"><i class="icon-play icon-white"></i></a>
+                    <a href="#" class="controls"><i class="icon-pause icon-white"></i></a>
+                    <a href="#" class="controls"><i class="icon-step-forward icon-white"></i></a>
                     &nbsp;
-                    <a href="#"><i class="toggle_random icon-random <%== $mpd_status->random ? 'icon-white' : '' %>"></i></a>
+                    <a href="#" class="controls"><i class="toggle_random icon-random <%== $mpd_status->random ? 'icon-white' : '' %>"></i></a>
                     &nbsp;
-                    <a href="#"><i class="icon-volume-down icon-white"></i></a>
-                    <a href="#"><i class="icon-volume-up icon-white"></i></a>
+                    <a href="#" class="controls"><i class="icon-volume-down icon-white"></i></a>
+                    <a href="#" class="controls"><i class="icon-volume-up icon-white"></i></a>
                     <span class="small current_volume"><%== $mpd_status->volume %>%</span>
                 </p>
             </div>
@@ -101,6 +101,14 @@ function toggle(setting) {
 
     });
 }
+function mpd_playid(trackid) {
+    $.ajax({
+        url: '<%= url_for '/mpd/playid/' %>' + trackid,
+        success: function(data) {
+            get_current_track();
+        }
+    });
+}
 function set_current_track(track) {
     /* Move track icon */
     $(".current_track_icon").removeClass("icon-music");
@@ -121,13 +129,14 @@ function get_current_track() {
 }
 $(document).ready(function() {
     window.setInterval(get_current_track, 1000);
-    $(".icon-volume-up").click( function() { set_volume( 'up' ); });
-    $(".icon-volume-down").click( function() { set_volume( 'down' ); });
-    $(".icon-step-forward").click( function() { move_song( 'next' ); });
-    $(".icon-step-backward").click( function() { move_song( 'prev' ); });
-    $(".icon-play").click( function() { mpd_do( 'play' ); });
-    $(".icon-pause").click( function() { mpd_do( 'pause' ); });
-    $(".icon-random").click( function() { toggle( 'random' ); });
+    $("a.controls .icon-volume-up").click( function() { set_volume( 'up' ); });
+    $("a.controls .icon-volume-down").click( function() { set_volume( 'down' ); });
+    $("a.controls .icon-step-forward").click( function() { move_song( 'next' ); });
+    $("a.controls .icon-step-backward").click( function() { move_song( 'prev' ); });
+    $("a.controls .icon-play").click( function() { mpd_do( 'play' ); });
+    $("a.controls .icon-pause").click( function() { mpd_do( 'pause' ); });
+    $("a.controls .icon-random").click( function() { toggle( 'random' ); });
+    $("a.playid").click( function() { mpd_playid( $(this).attr('data') ); });
 });
 </script>
 

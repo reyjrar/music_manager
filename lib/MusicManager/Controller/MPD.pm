@@ -80,21 +80,22 @@ sub playid {
     my $self = shift;
     my $id = $self->stash( 'song_id' );
 
+    my %status = ( song => $id );
     if( $id =~ /^[0-9]+$/ ) {
         my $err=undef;
+        $status{attempted} = 1;
         try {
             $self->app->mpd->playid($id);
-            $self->flash(message => "Playing ID: $id");
+            $status{success} = 1;
         } catch {
-            $err = shift;
-            $self->flash(error => "MPD Encountered Error playing id=$id : $err" );
+            $status{error} = shift;
         };
     }
     else {
-        $self->flash(error => "Play ID only accepts integers: '$id'");
+        $status{error} = "Invalid song id";
     }
 
-    $self->redirect_to('/');
+    $self->render( json => \%status );
 }
 
 # Return True

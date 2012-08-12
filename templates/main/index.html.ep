@@ -79,7 +79,7 @@
         <td><%= $song->title %></td>
         <td>
             <a class="btn btn-danger" href="<%= url_for '/nowplaying/del/song/' . $song->id %>"><i class="icon-ban-circle icon-white"></i> delete</a>
-            <a class="btn btn-success" href="<%= url_for '/mpd/playid/' . $song->id %>"><i class="icon-play icon-white"></i> play</a>
+            <a class="btn btn-success playid" href="#" data="<%= $song->id %>"><i class="icon-play icon-white"></i> play</a>
         </td>
     </tr>
 % }
