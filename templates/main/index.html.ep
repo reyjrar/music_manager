@@ -70,7 +70,7 @@
 % foreach my $song (@$songs) {
     <tr>
         <td>
-%   my $class = $current_track->{id} == $song->id  ? "icon-music" : '';
+%   my $class = $current_track->{id} == $song->id  ? "current_track_icon icon-music" : 'current_track_icon';
             <i id="track_<%= $song->id %>" class="<%= $class %>"></i>
         </td>
         <td><%= $song->id %></td>

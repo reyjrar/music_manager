@@ -30,16 +30,16 @@
                 </form>
                 -->
                 <p class="navbar-text pull-right">
-                    <a href="<%= url_for '/mpd/do/prev' %>"><i class="icon-step-backward icon-white"></i></a>
-                    <a href="<%= url_for '/mpd/do/play' %>"><i class="icon-play icon-white"></i></a>
-                    <a href="<%= url_for '/mpd/do/pause' %>"><i class="icon-pause icon-white"></i></a>
-                    <a href="<%= url_for '/mpd/do/next' %>"><i class="icon-step-forward icon-white"></i></a>
+                    <a href="#"><i class="icon-step-backward icon-white"></i></a>
+                    <a href="#"><i class="icon-play icon-white"></i></a>
+                    <a href="#"><i class="icon-pause icon-white"></i></a>
+                    <a href="#"><i class="icon-step-forward icon-white"></i></a>
                     &nbsp;
-                    <a href="<%= url_for '/mpd/toggle/random' %>"><i class="icon-random <%== $mpd_status->random ? 'icon-white' : '' %>"></i></a>
+                    <a href="#"><i class="toggle_random icon-random <%== $mpd_status->random ? 'icon-white' : '' %>"></i></a>
                     &nbsp;
-                    <a href="<%= url_for '/mpd/volume/down' %>"><i class="icon-volume-down icon-white"></i></a>
-                    <a href="<%= url_for '/mpd/volume/up' %>"><i class="icon-volume-up icon-white"></i></a>
-                    <span class="small" id="current_volume"><%== $mpd_status->volume %>%</span>
+                    <a href="#"><i class="icon-volume-down icon-white"></i></a>
+                    <a href="#"><i class="icon-volume-up icon-white"></i></a>
+                    <span class="small current_volume"><%== $mpd_status->volume %>%</span>
                 </p>
             </div>
         </div>
@@ -69,6 +69,67 @@
     </div>
     </div>
 % }
+
+<script type="text/javascript">
+function set_volume(direction) {
+    $.ajax({
+        url: '<%= url_for '/mpd/volume/' %>' + direction,
+        success: function(data) {
+            $('.current_volume').text( data['current_volume'] + '%' );
+        }
+    });
+}
+function move_song(direction) {
+    $.ajax({
+        url: '<%= url_for '/mpd/do/' %>' + direction,
+        success: function(data) {
+            get_current_track();
+        }
+    });
+}
+function mpd_do(command) {
+    $.ajax({
+        url: '<%= url_for '/mpd/do/' %>' + command
+    });
+}
+function toggle(setting) {
+    $.ajax({
+        url: '<%= url_for '/mpd/toggle/' %>' + setting,
+        success: function(data) {
+            $('.toggle_' + setting).toggleClass('icon-white');
+        }
+
+    });
+}
+function set_current_track(track) {
+    /* Move track icon */
+    $(".current_track_icon").removeClass("icon-music");
+    $('#track_' + track['id']).addClass("icon-music");
+    /* Updated "now playing" data */
+    for ( var field in track ) {
+        $(".current_track_" + field ).text( track[field] );
+        $(".current_track_" + field ).val( track[field] );
+    }
+}
+function get_current_track() {
+    $.ajax({
+        url: '<%= url_for '/ajax/current_track' %>',
+        success: function(data) {
+            set_current_track(data['current_track']);
+        }
+    });
+}
+$(document).ready(function() {
+    window.setInterval(get_current_track, 1000);
+    $(".icon-volume-up").click( function() { set_volume( 'up' ); });
+    $(".icon-volume-down").click( function() { set_volume( 'down' ); });
+    $(".icon-step-forward").click( function() { move_song( 'next' ); });
+    $(".icon-step-backward").click( function() { move_song( 'prev' ); });
+    $(".icon-play").click( function() { mpd_do( 'play' ); });
+    $(".icon-pause").click( function() { mpd_do( 'pause' ); });
+    $(".icon-random").click( function() { toggle( 'random' ); });
+});
+</script>
 
 </body>
 </html>

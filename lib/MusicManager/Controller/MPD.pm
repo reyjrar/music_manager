@@ -18,13 +18,11 @@ sub volume {
 
     if( exists $values{$mv} ) {
         $self->app->mpd->volume( $values{$mv} );
-        $self->flash( "Volume adjusted $mv" );
-    }
-    else {
-        $self->flash(error => "Unknown Volume Adjustment '$mv'" );
     }
 
-    $self->redirect_to('/');
+    my $volume = $self->app->mpd->status->volume;
+
+    $self->render( json => { current_volume => $volume} );
 }
 
 # Handle MPD Control Objects
@@ -32,22 +30,23 @@ sub do {
     my $self = shift;
     my $name = $self->stash( 'command' );
 
+    my %status = ( command => $name );
     if( exists $_mpd_can_do{$name} ) {
+        $status{attempted} = 1;
         my $err=undef;
         try {
             no strict;
             $self->app->mpd->$name();
+            $status{success} = 1;
         } catch {
-            $err = shift;
+            $status{error} = shift;
         };
-        $err ? $self->flash(error => "MPD Encountered Error Attempting: $name" )
-             : $self->flash(message => "MPD Server executed : $name");
     }
     else {
-        $self->flash(error => "Unknown MPD Action: $name");
+        $status{error} = "Invalid command sent";
     }
 
-    $self->redirect_to('/');
+    $self->render( json => \%status );
 }
 
 # Handle Toggles
@@ -55,23 +54,25 @@ sub toggle {
     my $self = shift;
     my $name = $self->stash( 'setting' );
 
+    my %status = ( setting => $name );
     if( exists $_mpd_can_toggle{$name} ) {
         my $err=undef;
+        $status{attempted} = 1;
         try {
             no strict;
             my $new = !$self->app->mpd->status->$name;
             $self->app->mpd->$name($new);
-            $self->flash(message => "Set $name to $new");
+            $status{success} = 1;
+            $status{value} = $new;
         } catch {
-            $err = shift;
-            $self->flash(error => "MPD Encountered Error Toggling '$name' : $err" );
+            $status{error} = shift;
         };
     }
     else {
-        $self->flash(error => "Unknown MPD Setting: $name");
+        $status{error} = "Invalid setting toggle attempted.";
     }
 
-    $self->redirect_to('/');
+    $self->render(json => \%status );
 }
 
 # Handle Track changing

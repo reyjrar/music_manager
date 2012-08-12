@@ -62,6 +62,9 @@ sub startup {
     # Normal route to controller
     $r->route('/')->to('main#index');
 
+    # AJAX Routes
+    $r->route('/ajax/current_track')->to( controller => 'AJAX', action => 'current_track');
+
     # Library Routes
     $r->route('/library')->to('library#artists');
     $r->route('/library/artists')->to('library#artists');
