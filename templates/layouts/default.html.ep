@@ -20,20 +20,15 @@
                 by <a href="<%== url_for "/library/artist/". $current_track->{artist} %>"><span class="current_track_artist"><%== $current_track->{artist} %></span></a>
                 </p>
                 <ul class="nav">
-                    <li class="dropdown" id="navmenu">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#navmenu">
-                            Navigate
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="<%== url_for '/' %>">Home</a></li>
-                            <li><a href="<%== url_for '/library' %>">Library</a></li>
-                        </ul>
-                    </li>
+                    <li class="divider-vertical"></li>
+                    <li id="nav_main"><a href="<%== url_for '/' %>">Home</a></li>
+                    <li id="nav_library"><a href="<%== url_for '/library' %>">Library</a></li>
                 </ul>
+                <!-- Disabled as this is not implemented
                 <form class="navbar-search pull-left">
                     <input type="text" class="search-query" placeholder="Search Library">
                 </form>
+                -->
                 <p class="navbar-text pull-right">
                     <a href="<%= url_for '/mpd/do/prev' %>"><i class="icon-step-backward icon-white"></i></a>
                     <a href="<%= url_for '/mpd/do/play' %>"><i class="icon-play icon-white"></i></a>
@@ -44,7 +39,7 @@
                     &nbsp;
                     <a href="<%= url_for '/mpd/volume/down' %>"><i class="icon-volume-down icon-white"></i></a>
                     <a href="<%= url_for '/mpd/volume/up' %>"><i class="icon-volume-up icon-white"></i></a>
-                    <span class="small"><%== $mpd_status->volume %>%</span>
+                    <span class="small" id="current_volume"><%== $mpd_status->volume %>%</span>
                 </p>
             </div>
         </div>

@@ -28,6 +28,9 @@
 </table>
 <script type="text/javascript">
 $(document).ready(function() {
+    /* Set active menu item */
+    $("#nav_library").addClass('active');
+
     $('#artists').dataTable({
         "iDisplayLength": 25,
         "bSortClasses": false,

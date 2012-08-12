@@ -89,6 +89,8 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+    /* Set Active Nav Item */
+    $('#nav_main').addClass('active');
     $('#playlist').dataTable({
         "iDisplayLength": 20,
         "bSortClasses": false,
