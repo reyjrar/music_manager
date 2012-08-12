@@ -1,7 +1,7 @@
 % layout 'default';
 % title "MusicManager :: Library Artists";
 
-<table class="table">
+<table id="artists" class="table table-condensed table-striped">
 <thead>
     <tr>
         <th>Artist Name</th>
@@ -13,7 +13,7 @@
 %   $artist =~ s/^\s+//;
 %   next unless defined $artist and length $artist;
 <tr>
-    <td><%== $artist %></td>
+    <td><%= $artist %></td>
     <td><a href="<%= url_for "/nowplaying/add/artist/$artist" %>"
            class="btn btn-success"><i class="icon-plus icon-white"></i> add artist</a>
         <a href="<%= url_for "/nowplaying/replace/artist/$artist" %>"
@@ -26,3 +26,15 @@
 % }
 </tbody>
 </table>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#artists').dataTable({
+        "iDisplayLength": 25,
+        "bSortClasses": false,
+        "sPaginationType": "bootstrap",
+        "oLanguage": {
+            "sLengthMenu": "_MENU_ records per page"
+         }
+    });
+});
+</script>

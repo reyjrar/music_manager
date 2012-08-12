@@ -4,42 +4,19 @@ body {
 div#content {
     clear: left;
 }
-/* Table Sorter CSS */
-table .header {
-  cursor: pointer;
+/* DataTables CSS */
+table.table thead .sorting,
+table.table thead .sorting_asc,
+table.table thead .sorting_desc,
+table.table thead .sorting_asc_disabled,
+table.table thead .sorting_desc_disabled {
+    cursor: pointer;
+    *cursor: hand;
 }
-table .header:after {
-  content: "";
-  float: right;
-  margin-top: 7px;
-  border-width: 0 4px 4px;
-  border-style: solid;
-  border-color: #000000 transparent;
-  visibility: hidden;
-}
-table .headerSortUp, table .headerSortDown {
-  background-color: #f7f7f9;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-}
-table .header:hover:after {
-  visibility: visible;
-}
-table .headerSortDown:after, table .headerSortDown:hover:after {
-  visibility: visible;
-  filter: alpha(opacity=60);
-  -moz-opacity: 0.6;
-  opacity: 0.6;
-}
-table .headerSortUp:after {
-  border-bottom: none;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid #000000;
-  visibility: visible;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  filter: alpha(opacity=60);
-  -moz-opacity: 0.6;
-  opacity: 0.6;
-}
+
+table.table thead .sorting { background: url('../img/sort_both.png') no-repeat center right; }
+table.table thead .sorting_asc { background: url('../img/sort_asc.png') no-repeat center right; }
+table.table thead .sorting_desc { background: url('../img/sort_desc.png') no-repeat center right; }
+
+table.table thead .sorting_asc_disabled { background: url('../img/sort_asc_disabled.png') no-repeat center right; }
+table.table thead .sorting_desc_disabled { background: url(../'img/sort_desc_disabled.png') no-repeat center right; }

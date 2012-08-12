@@ -89,6 +89,13 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#playlist').tablesorter();
+    $('#playlist').dataTable({
+        "iDisplayLength": 20,
+        "bSortClasses": false,
+        "sPaginationType": "bootstrap",
+        "oLanguage": {
+            "sLengthMenu": "_MENU_ records per page"
+         }
+    });
 });
 </script>
