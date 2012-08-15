@@ -136,7 +136,6 @@ $(document).ready(function() {
     $("a.controls .icon-play").click( function() { mpd_do( 'play' ); });
     $("a.controls .icon-pause").click( function() { mpd_do( 'pause' ); });
     $("a.controls .icon-random").click( function() { toggle( 'random' ); });
-    $("a.playid").click( function() { mpd_playid( $(this).attr('data') ); });
 });
 </script>
 

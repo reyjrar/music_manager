@@ -97,7 +97,10 @@ $(document).ready(function() {
         "sPaginationType": "bootstrap",
         "oLanguage": {
             "sLengthMenu": "_MENU_ records per page"
-         }
+         },
+        "fnDrawCallback": function( oSettings ) {
+            $("a.playid").click( function() { mpd_playid( $(this).attr('data') ); });
+        }
     });
 });
 </script>
