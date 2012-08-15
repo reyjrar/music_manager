@@ -1,5 +1,6 @@
 Mojolicious
 Audio::MPD
 Mojolicious::Plugin::YamlConfig
+Plack::Builder
 File::Find::Rule
 Try::Tiny
