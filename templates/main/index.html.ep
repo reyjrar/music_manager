@@ -46,7 +46,6 @@
 <thead>
     <tr>
         <th></th>
-        <th></th>
         <th>Artist</th>
         <th>Album</th>
         <th>Song</th>
@@ -60,7 +59,7 @@
 %   my $class = $current_track->{id} == $song->id  ? "current_track_icon icon-music" : 'current_track_icon';
             <i id="track_<%= $song->id %>" class="<%= $class %>"></i>
         </td>
-        <td><input type="checkbox" name="song_id" value="<%= $song->id %>"/></td>
+<!--         <td><input type="checkbox" name="song_id" value="<%= $song->id %>"/></td> -->
         <td><a href="<%= url_for '/library/artist/' . $song->artist %>"><%= $song->artist %></a></td>
         <td><%= $song->album %></td>
         <td><%= $song->title %></td>
