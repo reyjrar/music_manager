@@ -2,18 +2,8 @@
 
 <div class="row">
 <div class="span6">
-<form method="POST" action="<%= url_for '/playlist/add_song' %>">
 <h2>Add Current Song to Offline Playlist</h2>
-
-<dl class="dl-horizontal">
-    <dt>Title :</dt>
-    <dd class="current_track_title"><%== $current_track->{title} %></dd>
-    <dt>Album :</dt>
-    <dd class="current_track_album"><%== $current_track->{album} %></dd>
-    <dt>Artist :</dt>
-    <dd class="current_track_artist"><%== $current_track->{artist} %></dd>
-</dl>
-
+<form method="POST" action="<%= url_for '/playlist/add_song' %>">
 <select name="playlist_name">
 % foreach my $l (@$playlists) {
     <option value="<%== $l %>"><%== $l %></option>
@@ -37,29 +27,26 @@
 <input type="Submit" value="Change Playlists" class="btn btn-primary"/>
 </form>
 </div>
-</div><!-- End of Row --!>
-
-<hr />
-
-<!-- Current Playlist Entries -->
-<div class="row">
-<h1 class="span3">Now Playing</h1>
-<div class="span5 offset2">
+<div class="offset6 span6">
 <form class="form-inline" method="POST" action="<%= url_for '/nowplaying/save' %>">
     <label for="saveas">Save current playlist as : </label>
     <input type="text" name="saveas" id="saveas" class="input-small"/>
     <input type ="submit" value="Save" class="btn btn-primary"/>
 </form>
 </div>
-</div>
 
+</div><!-- End of Row --!>
 
+<!-- Current Playlist Entries -->
 <div class="row">
+<form action="<%= url_for '/list/update' %>" method="POST">
+<h1>Now Playing</h1>
+<hr/>
 <table id="playlist" class="table table-striped table-condensed">
 <thead>
     <tr>
         <th></th>
-        <th>#</th>
+        <th></th>
         <th>Artist</th>
         <th>Album</th>
         <th>Song</th>
@@ -73,7 +60,7 @@
 %   my $class = $current_track->{id} == $song->id  ? "current_track_icon icon-music" : 'current_track_icon';
             <i id="track_<%= $song->id %>" class="<%= $class %>"></i>
         </td>
-        <td><%= $song->id %></td>
+        <td><input type="checkbox" name="song_id" value="<%= $song->id %>"/></td>
         <td><a href="<%= url_for '/library/artist/' . $song->artist %>"><%= $song->artist %></a></td>
         <td><%= $song->album %></td>
         <td><%= $song->title %></td>
@@ -85,6 +72,7 @@
 % }
 </tbody>
 </table>
+</form>
 </div>
 
 <script type="text/javascript">
@@ -92,7 +80,7 @@ $(document).ready(function() {
     /* Set Active Nav Item */
     $('#nav_main').addClass('active');
     $('#playlist').dataTable({
-        "iDisplayLength": 20,
+        "iDisplayLength": 10,
         "bSortClasses": false,
         "sPaginationType": "bootstrap",
         "oLanguage": {
