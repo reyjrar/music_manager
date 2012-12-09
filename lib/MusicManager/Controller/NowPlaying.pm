@@ -119,11 +119,12 @@ sub add_song {
     my $file = decode_base64( $self->stash('song_id') );
 
     try {
+        die "unknown file" unless $file;
         $mpd->playlist->add( $file );
         $self->flash(message => "Added Song ID: $file");
     } catch {
         my $err = shift;
-        $self->flash(error => "Received error adding $file");
+        $self->flash(error => "Received error adding $file: $err");
     };
 
     $self->redirect_to( '/' );
