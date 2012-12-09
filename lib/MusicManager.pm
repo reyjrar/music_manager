@@ -1,6 +1,7 @@
 package MusicManager;
 use Mojo::Base 'Mojolicious';
 use Audio::MPD;
+use MIME::Base64;
 use MusicManager::Model::Playlists;
 use MusicManager::Model::Files;
 
@@ -55,6 +56,9 @@ sub startup {
           }
     );
 
+    # Helpers
+    $self->helper( base64 => sub { return encode_base64( $_[1] ) } );
+
     # Routing via Controller::*
     my $r = $self->routes;
     $r->namespace('MusicManager::Controller');
@@ -76,6 +80,7 @@ sub startup {
     $r->route('/nowplaying/replace/artist/:artist')->to(controller => 'NowPlaying', action => 'replace_artist');
     $r->route('/nowplaying/add/album/:artist/:album')->to(controller => 'NowPlaying', action => 'add_artist_album');
     $r->route('/nowplaying/replace/album/:artist/:album')->to(controller => 'NowPlaying', action => 'replace_artist_album');
+    $r->route('/nowplaying/add/song/:song_id')->to(controller => 'NowPlaying', action => 'add_song');
     $r->route('/nowplaying/del/song/:song_id')->to(controller => 'NowPlaying', action => 'del_song');
     $r->route('/nowplaying/save')->to(controller => 'NowPlaying', action => 'save');
 

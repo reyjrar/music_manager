@@ -12,12 +12,11 @@
 </thead>
 <tbody>
 % foreach my $song (@$songs) {
-%   my $song_id = $song->file;
 <tr>
     <td><%== $song->artist %></td>
     <td><%== $song->album %></td>
     <td><%== $song->title %></td>
-    <td><a href="<%= url_for "/nowplaying/add/song/$song_id" %>"
+    <td><a href="<%= url_for "/nowplaying/add/song/" %><%= base64 $song->file %>"
            class="btn btn-success"><i class="icon-plus icon-white"></i> add song</a>
     </td>
 </tr>

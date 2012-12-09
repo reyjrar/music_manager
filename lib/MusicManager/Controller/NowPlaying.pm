@@ -1,5 +1,6 @@
 package MusicManager::Controller::NowPlaying;
 use Mojo::Base 'Mojolicious::Controller';
+use MIME::Base64;
 use Try::Tiny;
 
 # Controller to modify the currently playing song list
@@ -114,6 +115,18 @@ sub replace_artist_album {
 sub add_song {
     my $self = shift;
     my $mpd = $self->app->mpd;
+
+    my $file = decode_base64( $self->stash('song_id') );
+
+    try {
+        $mpd->playlist->add( $file );
+        $self->flash(message => "Added Song ID: $file");
+    } catch {
+        my $err = shift;
+        $self->flash(error => "Received error adding $file");
+    };
+
+    $self->redirect_to( '/' );
 }
 
 sub del_song {
