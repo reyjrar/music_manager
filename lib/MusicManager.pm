@@ -38,6 +38,10 @@ sub startup {
             stash_key   => 'config',
     });
 
+    # Defaults
+    $self->defaults(
+        layout => 'default',
+    );
     # Hook to refresh state
     $self->hook( before_dispatch => sub {
               my $c = shift;

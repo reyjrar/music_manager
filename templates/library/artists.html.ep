@@ -1,6 +1,6 @@
-% layout 'default';
-% title "MusicManager :: Library Artists";
+%title "MusicManager :: Library Artists";
 
+<h1>Viewing all arists</h1>
 <table id="artists" class="table table-condensed table-striped">
 <thead>
     <tr>

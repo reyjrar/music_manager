@@ -15,13 +15,9 @@
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
-                <p class="navbar-text pull-left"><i class="icon-music icon-white"></i>
-                "<span class="current_track_title"><%= $current_track->{title} %></span>"
-                by <a href="<%== url_for "/library/artist/". $current_track->{artist} %>"><span class="current_track_artist"><%= $current_track->{artist} %></span></a>
-                </p>
+                <a href="<%= url_for '/' %>"><span class="brand">MusicManager</span></a>
                 <ul class="nav">
                     <li class="divider-vertical"></li>
-                    <li id="nav_main"><a href="<%= url_for '/' %>">Home</a></li>
                     <li id="nav_library"><a href="<%= url_for '/library' %>">Library</a></li>
                 </ul>
                 <!-- Disabled as this is not implemented
@@ -30,6 +26,11 @@
                 </form>
                 -->
                 <p class="navbar-text pull-right">
+                    <span><i class="icon-music icon-white"></i> <span class="current_track_title"><%= $current_track->{title} %></span>"
+                    by <a href="<%== url_for "/library/artist/". $current_track->{artist} %>"><span class="current_track_artist"><%= $current_track->{artist} %></span></a>
+                    </span>
+                    <span class="divider-vertical"></span>
+                    <span>
                     <a href="#" class="controls"><i class="icon-step-backward icon-white"></i></a>
                     <a href="#" class="controls"><i class="icon-play icon-white"></i></a>
                     <a href="#" class="controls"><i class="icon-pause icon-white"></i></a>
@@ -40,12 +41,12 @@
                     <a href="#" class="controls"><i class="icon-volume-down icon-white"></i></a>
                     <a href="#" class="controls"><i class="icon-volume-up icon-white"></i></a>
                     <span class="small current_volume"><%= $mpd_status->volume %>%</span>
+                    </span>
                 </p>
             </div>
         </div>
     </div>
     <div id="content" class="container">
-        <h1><%= title %></h1>
         <%= content %>
     </div>
 

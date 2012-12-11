@@ -1,6 +1,6 @@
-% layout 'default';
-% title "MusicManager :: Artist :: $artist";
+%title "MusicManager :: Artist :: $artist";
 
+<h1>Viewing artist '<%= $artist %>'</h1>
 <table class="table">
 <thead>
     <tr>
