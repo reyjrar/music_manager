@@ -13,6 +13,12 @@ sub save {
     $playlist_name =~ s/\s+/\_/g;
     $playlist_name =~ s/[^0-9a-z-A-Z\_\-]+//g;
 
+    # MPD can't save a playlist with the same name
+    # so we remove it first!
+    try {
+        $mpd->playlist->rm($playlist_name);
+        $self->app->log->info("Successfully deleted playlist $playlist_name");
+    };
     $mpd->playlist->save( $playlist_name );
 
     $self->flash( message => "Playlist saved as '$playlist_name'" );
