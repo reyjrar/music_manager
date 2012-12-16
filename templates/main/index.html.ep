@@ -79,6 +79,7 @@ $(document).ready(function() {
     $('#playlist').dataTable({
         "iDisplayLength": 10,
         "bSortClasses": false,
+        "aaSorting": [[1, "asc"], [2, "asc"]],
         "sPaginationType": "bootstrap",
         "oLanguage": {
             "sLengthMenu": "_MENU_ records per page"
