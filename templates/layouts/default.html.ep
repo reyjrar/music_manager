@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="<%= url_for '/css/main.css' %>"/>
     <script type="text/javascript" src="<%= url_for '/js/jquery.min.js' %>"></script>
     <script type="text/javascript" src="<%= url_for '/js/jquery.dataTables.min.js' %>"></script>
+    <script type="text/javascript" src="<%= url_for '/js/jquery.bootstrap-growl.js' %>"></script>
     <script type="text/javascript" src="<%= url_for '/js/bootstrap.min.js' %>"></script>
     <script type="text/javascript" src="<%= url_for '/js/bootstrap-datatables.js' %>"></script>
 </head>
@@ -50,28 +51,18 @@
         <%= content %>
     </div>
 
-    <!-- Flashes -->
-    <div class="row">
-        <div class="span4">&nbsp;</div>
+<script type="text/javascript">
+/* Flashes */
 % my $message = flash 'message';
 % if ( defined $message ) {
-    <div class="row">
-    <div id='flash' class="span4 alert alert-success">
-        <a class="close" data-dismiss="alert">x</a>
-        <%= $message %>
-    </div>
-    </div>
+    $.bootstrapGrowl("<%= $message %>", { type: 'success' })
 % }
 % my $error = flash 'error';
 % if ( defined $error ) {
-    <div id='flash' class="span4 alert alert-error">
-        <a class="close" data-dismiss="alert">x</a>
-        <%= $error %>
-    </div>
-    </div>
+    $.bootstrapGrowl("<%= $error %>", { type: 'error' })
 % }
 
-<script type="text/javascript">
+/* Functions */
 function set_volume(direction) {
     $.ajax({
         url: '<%= url_for '/mpd/volume/' %>' + direction,
@@ -128,6 +119,7 @@ function get_current_track() {
         }
     });
 }
+/* Bindings */
 $(document).ready(function() {
     window.setInterval(get_current_track, 5000);
     $("a.controls .icon-volume-up").click( function() { set_volume( 'up' ); });
